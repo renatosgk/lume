@@ -7,6 +7,9 @@ import com.gs.global_solution.model.User;
 import com.gs.global_solution.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +18,7 @@ import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
@@ -112,6 +115,12 @@ public class UserService {
         user.setIdade(dto.getIdade());
         user.setNivelDeEstresse(dto.getNivelDeEstresse());
         return user;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByEmailIgnoreCase(username)
+                .orElseThrow(()->new UsernameNotFoundException("cliente não encontrado"));
     }
 }
 
