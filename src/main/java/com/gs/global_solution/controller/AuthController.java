@@ -76,13 +76,7 @@ public class AuthController {
         user.setNivelDeEstresse(NivelDeEstresse.MEDIO);
 
         userRepository.save(user);
-
-        String token = tokenService.gerarToken(user);
-        TokenResponseDTO response = new TokenResponseDTO();
-        response.setTokenAcesso(token);
-        response.setNome(user.getNome());
-        response.setEmail(user.getEmail());
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok("Usuário cadastrado com sucesso!");
     }
 
     public UserDetails saveCliente(String email, String senhaCriptografada) {
