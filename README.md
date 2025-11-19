@@ -51,3 +51,4 @@ mvn spring-boot:run
 
 ### Swagger
 - **Com o projeto rodando** acesse http://localhost:8080/swagger-ui.html
+- https://lumejava.onrender.com/swagger-ui/index.html
